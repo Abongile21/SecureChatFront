@@ -3,7 +3,7 @@ import axios from 'axios';
 const API_BASE_URL =
   import.meta.env.VITE_API_URL ||
   import.meta.env.REACT_APP_API_URL ||
-  'https://secure-chat-backend-working.vercel.app/api';
+  'https://secure-chat-back-224v.vercel.app/api';
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,

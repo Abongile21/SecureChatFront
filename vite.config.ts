@@ -13,7 +13,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': {
-        target: 'https://secure-chat-backend-working.vercel.app',
+        target: 'https://secure-chat-back-224v.vercel.app',
         changeOrigin: true,
       },
     },
