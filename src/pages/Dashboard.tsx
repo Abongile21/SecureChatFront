@@ -1,0 +1,103 @@
+import { useEffect, useState } from 'react';
+import apiClient from '../services/apiClient';
+
+type DashboardData = {
+  user: { name: string; totalPoints: number; rank: number; badges: number };
+  activity: {
+    chatMessages: number;
+    activeSessions: number;
+    completedTrainings: number;
+    totalTrainings: number;
+    completedLessons: number;
+    phishingQuizzes: number;
+    weeklyConsistency: number;
+  };
+};
+
+const initialData: DashboardData = {
+  user: { name: 'there', totalPoints: 0, rank: 0, badges: 0 },
+  activity: { chatMessages: 0, activeSessions: 0, completedTrainings: 0, totalTrainings: 0, completedLessons: 0, phishingQuizzes: 0, weeklyConsistency: 0 },
+};
+
+export default function Dashboard() {
+  const [data, setData] = useState(initialData);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    let active = true;
+    const loadDashboard = async () => {
+      setIsLoading(true);
+      try {
+        const response = await apiClient.get<DashboardData>('/users/dashboard');
+        if (active) {
+          setData(response.data);
+          setError('');
+        }
+      } catch {
+        if (active) setError('Dashboard data is temporarily unavailable.');
+      } finally {
+        if (active) setIsLoading(false);
+      }
+    };
+    void loadDashboard();
+    window.addEventListener('securechat:data-updated', loadDashboard);
+    return () => {
+      active = false;
+      window.removeEventListener('securechat:data-updated', loadDashboard);
+    };
+  }, []);
+
+  const { user, activity } = data;
+  const cards = [
+    { title: 'Points', value: user.totalPoints.toLocaleString(), accent: 'from-cyan-500 to-sky-600' },
+    { title: 'Rank', value: user.rank ? `#${user.rank}` : '—', accent: 'from-emerald-500 to-teal-600' },
+    { title: 'Badges', value: String(user.badges), accent: 'from-violet-500 to-fuchsia-600' },
+    { title: 'Trainings', value: activity.totalTrainings ? `${activity.completedTrainings}/${activity.totalTrainings}` : 'Not started', accent: 'from-amber-500 to-orange-600' },
+  ];
+
+  const openChat = () => window.dispatchEvent(new Event('securechat:open'));
+
+  return (
+    <div className="space-y-6">
+      <section className="rounded-3xl border border-blue-100 bg-gradient-to-br from-blue-700 to-indigo-800 p-7 shadow-xl shadow-blue-900/10">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-200">Today&apos;s snapshot</p>
+            <h2 className="mt-2 text-3xl font-bold text-white">{isLoading ? 'Loading your learning snapshot...' : `Welcome back, ${user.name}.`}</h2>
+            <p className="mt-3 max-w-2xl text-sm leading-7 text-blue-100">Build safer habits with short lessons, practical quizzes, and guided conversations.</p>
+          </div>
+          <div className="rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-sm font-semibold text-white">{activity.weeklyConsistency}% learning progress</div>
+        </div>
+      </section>
+
+      {error && <p role="alert" className="rounded-xl border border-rose-200 bg-rose-50 p-3 text-sm text-rose-700">{error}</p>}
+
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        {cards.map((card) => <div key={card.title} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"><p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">{card.title}</p><p className="mt-4 text-3xl font-bold text-slate-900">{isLoading ? '...' : card.value}</p><div className={`mt-4 h-1.5 w-12 rounded-full bg-gradient-to-r ${card.accent}`} /></div>)}
+      </div>
+
+      <section className="grid gap-4 lg:grid-cols-[1.25fr_0.75fr]">
+        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-600">Keep learning</p>
+          <h3 className="mt-2 text-xl font-bold text-slate-900">Choose your next step</h3>
+          <p className="mt-3 text-sm leading-7 text-slate-600">Ask SecureChat for a guided lesson or test your knowledge with a short quiz.</p>
+          <div className="mt-5 flex flex-wrap gap-3">
+            <button onClick={openChat} className="rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700">Chat with SecureChat</button>
+            <button onClick={() => window.location.assign('/learning')} className="rounded-xl border border-slate-200 px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50">Browse learning</button>
+          </div>
+        </div>
+        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <h3 className="text-xl font-bold text-slate-900">Your activity</h3>
+          <ul className="mt-4 space-y-3 text-sm">
+            <li className="flex items-center justify-between rounded-2xl bg-slate-50 px-3 py-2.5 text-slate-600">Chat messages <span className="font-bold text-blue-600">{activity.chatMessages}</span></li>
+            <li className="flex items-center justify-between rounded-2xl bg-slate-50 px-3 py-2.5 text-slate-600">Learning sessions <span className="font-bold text-blue-600">{activity.activeSessions}</span></li>
+            <li className="flex items-center justify-between rounded-2xl bg-slate-50 px-3 py-2.5 text-slate-600">Lessons completed <span className="font-bold text-blue-600">{activity.completedLessons}</span></li>
+            <li className="flex items-center justify-between rounded-2xl bg-slate-50 px-3 py-2.5 text-slate-600">Quiz attempts <span className="font-bold text-blue-600">{activity.phishingQuizzes}</span></li>
+          </ul>
+        </div>
+      </section>
+
+    </div>
+  );
+}
