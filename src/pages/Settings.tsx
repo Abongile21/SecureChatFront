@@ -1,9 +1,9 @@
 export default function Settings() {
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Settings</h1>
+      <h1 className="mb-8 text-2xl font-bold sm:text-3xl">Settings</h1>
       <div className="max-w-2xl">
-        <div className="bg-white p-6 rounded-lg shadow">
+        <div className="rounded-lg bg-white p-5 shadow sm:p-6">
           <h2 className="text-xl font-semibold mb-4">Profile Settings</h2>
           <form className="space-y-4">
             <div>

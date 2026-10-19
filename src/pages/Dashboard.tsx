@@ -60,11 +60,11 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-6">
-      <section className="rounded-3xl border border-blue-100 bg-gradient-to-br from-blue-700 to-indigo-800 p-7 shadow-xl shadow-blue-900/10">
+      <section className="rounded-3xl border border-blue-100 bg-gradient-to-br from-blue-700 to-indigo-800 p-5 shadow-xl shadow-blue-900/10 sm:p-7">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-200">Today&apos;s snapshot</p>
-            <h2 className="mt-2 text-3xl font-bold text-white">{isLoading ? 'Loading your learning snapshot...' : `Welcome back, ${user.name}.`}</h2>
+            <h2 className="mt-2 text-2xl font-bold text-white sm:text-3xl">{isLoading ? 'Loading your learning snapshot...' : `Welcome back, ${user.name}.`}</h2>
             <p className="mt-3 max-w-2xl text-sm leading-7 text-blue-100">Build safer habits with short lessons, practical quizzes, and guided conversations.</p>
           </div>
           <div className="rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-sm font-semibold text-white">{activity.weeklyConsistency}% learning progress</div>
@@ -78,7 +78,7 @@ export default function Dashboard() {
       </div>
 
       <section className="grid gap-4 lg:grid-cols-[1.25fr_0.75fr]">
-        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-600">Keep learning</p>
           <h3 className="mt-2 text-xl font-bold text-slate-900">Choose your next step</h3>
           <p className="mt-3 text-sm leading-7 text-slate-600">Ask SecureChat for a guided lesson or test your knowledge with a short quiz.</p>
@@ -87,7 +87,7 @@ export default function Dashboard() {
             <button onClick={() => window.location.assign('/learning')} className="rounded-xl border border-slate-200 px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50">Browse learning</button>
           </div>
         </div>
-        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
           <h3 className="text-xl font-bold text-slate-900">Your activity</h3>
           <ul className="mt-4 space-y-3 text-sm">
             <li className="flex items-center justify-between rounded-2xl bg-slate-50 px-3 py-2.5 text-slate-600">Chat messages <span className="font-bold text-blue-600">{activity.chatMessages}</span></li>

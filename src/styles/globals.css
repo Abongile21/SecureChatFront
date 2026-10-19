@@ -18,6 +18,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: #f1f5f9;
   color: #17202a;
+  overflow-x: hidden;
 }
 
 html {
@@ -42,7 +43,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid rgba(37, 99, 235,
 .chat-launcher-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; clip-path: inset(50%); }
 .chat-modal-backdrop { position: fixed; inset: 0; z-index: 30; display: flex; align-items: center; justify-content: center; overflow-y: auto; padding: 28px; background: rgba(15, 23, 42, .38); }
 .chat-modal { position: relative; width: min(1100px, 100%); }
-.modal-close { position: absolute; top: 12px; right: 12px; z-index: 2; display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 0; border-radius: 50%; color: #64748b; background: #fff; box-shadow: 0 4px 12px rgba(15, 23, 42, .12); }
+.modal-close { position: absolute; top: 12px; right: 12px; z-index: 2; display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 0; border-radius: 50%; color: #64748b; background: #fff; box-shadow: 0 4px 12px rgba(15, 23, 42, .12); }
 .modal-close:hover { color: #1e293b; background: #f1f5f9; }
 .modal-close svg { width: 18px; height: 18px; }
 
@@ -122,21 +123,25 @@ button:focus-visible, input:focus-visible { outline: 3px solid rgba(37, 99, 235,
   .app-header { margin: 0; padding: 13px 16px; }
   .app-header h1 { font-size: 16px; }
   .app-header > div { gap: 10px; }
-  .app-header nav { order: 3; width: 100%; overflow-x: auto; padding-top: 2px; }
-  .app-header nav a { white-space: nowrap; }
-  .app-header button { display: none; }
+  .app-navigation { width: 100%; gap: 8px; overflow-x: auto; padding: 2px 0 4px; scrollbar-width: none; }
+  .app-navigation::-webkit-scrollbar { display: none; }
+  .app-navigation a, .app-navigation button { min-height: 44px; white-space: nowrap; }
   .chat-shell { position: relative; height: 100dvh; min-height: 0; border-right: 0; border-left: 0; border-radius: 0; }
   .conversation-panel, .chat-panel { position: absolute; inset: 0; width: 100%; }
   .conversation-panel { z-index: 2; border-right: 0; }
   .conversation-panel.mobile-hidden, .chat-panel:not(.mobile-visible) { display: none; }
-  .chat-header { min-height: 65px; padding: 11px 16px; }
+  .chat-header { min-height: 65px; padding: 11px 64px 11px 16px; }
   .back-button { display: inline-flex; width: 34px; height: 34px; margin-left: -6px; }
-  .message-toolbar { padding: 8px 16px; }
-  .message-search { width: 180px; }
+  .chat-options { flex-wrap: nowrap; overflow-x: auto; padding: 8px 16px; scrollbar-width: none; }
+  .chat-options::-webkit-scrollbar { display: none; }
+  .chat-options-label, .chat-options button { flex: 0 0 auto; }
+  .message-toolbar { align-items: flex-start; gap: 8px; padding: 8px 16px; }
+  .message-search { width: min(180px, 52vw); }
   .message-history { padding: 8px 16px 18px; }
   .message-bubble { max-width: 86%; }
   .composer-wrap { padding: 0 12px max(12px, env(safe-area-inset-bottom)); }
   .composer { min-height: 50px; }
+  .composer .icon-button, .composer .send-button { width: 44px; height: 44px; }
 }
 
 @media (min-width: 801px) and (max-width: 1024px) {

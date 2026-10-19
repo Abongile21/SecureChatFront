@@ -1,8 +1,9 @@
 export default function Leaderboard() {
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Leaderboard</h1>
-      <table className="w-full border-collapse border border-gray-300">
+      <h1 className="mb-8 text-2xl font-bold sm:text-3xl">Leaderboard</h1>
+      <div className="overflow-x-auto rounded-lg">
+      <table className="w-full min-w-[520px] border-collapse border border-gray-300">
         <thead className="bg-gray-200">
           <tr>
             <th className="border p-3">Rank</th>
@@ -22,6 +23,7 @@ export default function Leaderboard() {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }

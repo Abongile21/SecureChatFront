@@ -51,15 +51,15 @@ export default function Login() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 px-4 py-10">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 px-4 py-6 sm:py-10">
       <div className="w-full max-w-4xl overflow-hidden rounded-2xl border border-slate-700 bg-slate-900/60 shadow-2xl backdrop-blur">
         <div className="grid gap-0 lg:grid-cols-[1fr_1fr]">
           {/* Left side - Brand */}
-          <div className="border-r border-slate-700 bg-gradient-to-b from-slate-800 to-slate-900 p-8 sm:p-12 lg:p-16">
-            <div className="space-y-8">
+          <div className="border-r border-slate-700 bg-gradient-to-b from-slate-800 to-slate-900 p-6 sm:p-12 lg:p-16">
+            <div className="space-y-5 sm:space-y-8">
               <div>
                 <p className="text-xs font-bold uppercase tracking-widest text-cyan-400">SecureChat</p>
-                <h1 className="mt-4 text-3xl font-bold text-white">Security Training, Simplified</h1>
+                <h1 className="mt-3 text-2xl font-bold text-white sm:mt-4 sm:text-3xl">Security Training, Simplified</h1>
               </div>
               <p className="text-sm leading-relaxed text-slate-300">
                 Learn cybersecurity through engaging conversations. Real threats, real solutions.
@@ -82,7 +82,7 @@ export default function Login() {
           </div>
 
           {/* Right side - Form */}
-          <div className="flex flex-col justify-center p-8 sm:p-12 lg:p-16">
+          <div className="flex flex-col justify-center p-6 sm:p-12 lg:p-16">
             <div>
               <h2 className="text-2xl font-bold text-white">
                 {isRegistering ? 'Create Account' : 'Sign In'}

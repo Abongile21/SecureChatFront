@@ -23,7 +23,7 @@ export default function Layout() {
                 <h1 className="text-sm font-medium text-slate-500">Your secure cybersecurity learning space</h1>
               </div>
             </div>
-            <div className="flex flex-wrap items-center gap-3">
+            <nav className="app-navigation flex flex-wrap items-center gap-3" aria-label="Primary navigation">
               <NavLink to="/dashboard" className={({ isActive }) => `rounded-xl px-4 py-2 text-sm font-semibold transition ${isActive ? 'bg-blue-600 text-white shadow-md shadow-blue-600/20' : 'text-slate-600 hover:bg-white hover:text-blue-700'}`}>Dashboard</NavLink>
               <NavLink to="/learning" className={({ isActive }) => `rounded-xl px-4 py-2 text-sm font-semibold transition ${isActive ? 'bg-blue-600 text-white shadow-md shadow-blue-600/20' : 'text-slate-600 hover:bg-white hover:text-blue-700'}`}>Learning center</NavLink>
               <button
@@ -32,11 +32,11 @@ export default function Layout() {
               >
                 Logout
               </button>
-            </div>
+            </nav>
           </div>
         </header>
 
-        <main className="flex-1">
+        <main className="flex-1 px-4 pb-8 sm:px-0">
           <Outlet />
         </main>
       </div>
