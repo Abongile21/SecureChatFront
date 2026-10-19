@@ -1,4 +1,5 @@
 import { FormEvent, useEffect, useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
@@ -23,8 +24,29 @@ export default function Login() {
     try {
       if (isRegistering) await register(name, email, password);
       else await login(email, password);
-    } catch {
-      setError('Unable to authenticate. Check your details and try again.');
+    } catch (error) {
+      if (!axios.isAxiosError(error)) {
+        setError('Unable to authenticate. Please try again.');
+        return;
+      }
+
+      if (!error.response) {
+        setError('The authentication server is unavailable. Check the backend deployment and try again.');
+        return;
+      }
+
+      if (error.response.status === 404) {
+        setError('The authentication endpoint was not found. Check the configured backend URL.');
+        return;
+      }
+
+      if (error.response.status === 401) {
+        setError('Invalid email or password.');
+        return;
+      }
+
+      const message = error.response.data?.error;
+      setError(typeof message === 'string' ? message : 'Unable to authenticate. Please try again.');
     }
   };
 
